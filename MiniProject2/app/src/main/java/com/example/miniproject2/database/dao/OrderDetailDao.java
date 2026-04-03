@@ -1,6 +1,7 @@
 package com.example.miniproject2.database.dao;
 
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
@@ -14,6 +15,9 @@ public interface OrderDetailDao {
 
     @Update
     void update(OrderDetail orderDetail);
+
+    @Delete
+    void delete(OrderDetail orderDetail);
 
     @Query("SELECT * FROM order_details WHERE orderId = :orderId")
     List<OrderDetail> getOrderDetailsByOrder(int orderId);

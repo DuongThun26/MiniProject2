@@ -3,6 +3,7 @@ package com.example.miniproject2.adapters;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -19,10 +20,16 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
 
     private List<OrderDetail> orderDetails;
     private AppDatabase db;
+    private OnItemRemovedListener listener;
 
-    public CartAdapter(List<OrderDetail> orderDetails, AppDatabase db) {
+    public interface OnItemRemovedListener {
+        void onItemRemoved();
+    }
+
+    public CartAdapter(List<OrderDetail> orderDetails, AppDatabase db, OnItemRemovedListener listener) {
         this.orderDetails = orderDetails;
         this.db = db;
+        this.listener = listener;
     }
 
     @NonNull
@@ -39,10 +46,20 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         
         if (product != null) {
             holder.tvName.setText(product.getName());
-            holder.tvPrice.setText("$" + detail.getUnitPrice());
+            holder.tvPrice.setText("$" + String.format("%.2f", detail.getUnitPrice()));
             holder.tvQuantity.setText("x" + detail.getQuantity());
-            holder.tvSubtotal.setText("$" + (detail.getQuantity() * detail.getUnitPrice()));
+            holder.tvSubtotal.setText("$" + String.format("%.2f", detail.getQuantity() * detail.getUnitPrice()));
         }
+
+        holder.btnRemove.setOnClickListener(v -> {
+            db.orderDetailDao().delete(detail);
+            orderDetails.remove(position);
+            notifyItemRemoved(position);
+            notifyItemRangeChanged(position, orderDetails.size());
+            if (listener != null) {
+                listener.onItemRemoved();
+            }
+        });
     }
 
     @Override
@@ -52,6 +69,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
 
     public static class CartViewHolder extends RecyclerView.ViewHolder {
         TextView tvName, tvPrice, tvQuantity, tvSubtotal;
+        ImageButton btnRemove;
 
         public CartViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -59,6 +77,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
             tvPrice = itemView.findViewById(R.id.tvCartProductPrice);
             tvQuantity = itemView.findViewById(R.id.tvCartQuantity);
             tvSubtotal = itemView.findViewById(R.id.tvCartSubtotal);
+            btnRemove = itemView.findViewById(R.id.btnRemoveItem);
         }
     }
 }

@@ -17,13 +17,15 @@ public class Product {
     private String description;
     private String imageUrl;
     private int categoryId;
+    private String expiryDate;
 
-    public Product(String name, double price, String description, String imageUrl, int categoryId) {
+    public Product(String name, double price, String description, String imageUrl, int categoryId, String expiryDate) {
         this.name = name;
         this.price = price;
         this.description = description;
         this.imageUrl = imageUrl;
         this.categoryId = categoryId;
+        this.expiryDate = expiryDate;
     }
 
     public int getId() { return id; }
@@ -38,4 +40,6 @@ public class Product {
     public void setImageUrl(String imageUrl) { this.imageUrl = imageUrl; }
     public int getCategoryId() { return categoryId; }
     public void setCategoryId(int categoryId) { this.categoryId = categoryId; }
+    public String getExpiryDate() { return expiryDate; }
+    public void setExpiryDate(String expiryDate) { this.expiryDate = expiryDate; }
 }

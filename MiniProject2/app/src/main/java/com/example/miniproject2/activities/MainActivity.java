@@ -113,25 +113,25 @@ public class MainActivity extends AppCompatActivity {
             }
             
             // Fruits
-            db.productDao().insert(new Product("Apple", 2.5, "Sweet red apple", "apple_url", fruitId));
-            db.productDao().insert(new Product("Banana", 1.2, "Ripe yellow banana", "banana_url", fruitId));
-            db.productDao().insert(new Product("Orange", 3.0, "Juicy orange", "orange_url", fruitId));
-            db.productDao().insert(new Product("Grapes", 4.5, "Fresh green grapes", "grapes_url", fruitId));
+            db.productDao().insert(new Product("Apple", 2.5, "Sweet red apple", "apple_url", fruitId, "2025-12-31"));
+            db.productDao().insert(new Product("Banana", 1.2, "Ripe yellow banana", "banana_url", fruitId, "2025-12-31"));
+            db.productDao().insert(new Product("Orange", 3.0, "Juicy orange", "orange_url", fruitId, "2025-12-31"));
+            db.productDao().insert(new Product("Grapes", 4.5, "Fresh green grapes", "grapes_url", fruitId, "2025-12-31"));
             
             // Vegetables
-            db.productDao().insert(new Product("Carrot", 0.8, "Crunchy orange carrot", "carrot_url", veggieId));
-            db.productDao().insert(new Product("Broccoli", 1.5, "Fresh green broccoli", "broccoli_url", veggieId));
-            db.productDao().insert(new Product("Tomato", 1.0, "Red ripe tomato", "tomato_url", veggieId));
+            db.productDao().insert(new Product("Carrot", 0.8, "Crunchy orange carrot", "carrot_url", veggieId, "2025-12-31"));
+            db.productDao().insert(new Product("Broccoli", 1.5, "Fresh green broccoli", "broccoli_url", veggieId, "2025-12-31"));
+            db.productDao().insert(new Product("Tomato", 1.0, "Red ripe tomato", "tomato_url", veggieId, "2025-12-31"));
             
             // Tropical
-            db.productDao().insert(new Product("Mango", 3.5, "Sweet tropical mango", "mango_url", tropicalId));
-            db.productDao().insert(new Product("Pineapple", 5.0, "Fresh pineapple", "pineapple_url", tropicalId));
-            db.productDao().insert(new Product("Durian", 15.0, "King of fruits", "durian_url", tropicalId));
+            db.productDao().insert(new Product("Mango", 3.5, "Sweet tropical mango", "mango_url", tropicalId, "2025-12-31"));
+            db.productDao().insert(new Product("Pineapple", 5.0, "Fresh pineapple", "pineapple_url", tropicalId, "2025-12-31"));
+            db.productDao().insert(new Product("Durian", 15.0, "King of fruits", "durian_url", tropicalId, "2025-12-31"));
             
             // Berries
-            db.productDao().insert(new Product("Strawberry", 6.0, "Sweet red strawberries", "strawberry_url", berryId));
-            db.productDao().insert(new Product("Blueberry", 8.5, "Fresh blueberries", "blueberry_url", berryId));
-            db.productDao().insert(new Product("Raspberry", 9.0, "Tart red raspberries", "raspberry_url", berryId));
+            db.productDao().insert(new Product("Strawberry", 6.0, "Sweet red strawberries", "strawberry_url", berryId, "2025-12-31"));
+            db.productDao().insert(new Product("Blueberry", 8.5, "Fresh blueberries", "blueberry_url", berryId, "2025-12-31"));
+            db.productDao().insert(new Product("Raspberry", 9.0, "Tart red raspberries", "raspberry_url", berryId, "2025-12-31"));
         }
     }
 }

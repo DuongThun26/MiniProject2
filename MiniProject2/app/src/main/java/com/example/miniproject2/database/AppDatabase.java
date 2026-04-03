@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase;
 import com.example.miniproject2.database.dao.*;
 import com.example.miniproject2.database.entities.*;
 
-@Database(entities = {User.class, Category.class, Product.class, Order.class, OrderDetail.class}, version = 1)
+@Database(entities = {User.class, Category.class, Product.class, Order.class, OrderDetail.class}, version = 2)
 public abstract class AppDatabase extends RoomDatabase {
     private static volatile AppDatabase INSTANCE;
 
@@ -23,7 +23,8 @@ public abstract class AppDatabase extends RoomDatabase {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
                                     AppDatabase.class, "fruit_app_db")
-                            .allowMainThreadQueries() // For simplicity in this project
+                            .allowMainThreadQueries()
+                            .fallbackToDestructiveMigration()
                             .build();
                 }
             }
