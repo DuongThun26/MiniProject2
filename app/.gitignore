@@ -1,0 +1,69 @@
+# =========================
+# 🔹 Gradle
+# =========================
+.gradle/
+build/
+*/build/
+
+# =========================
+# 🔹 Local config (máy cá nhân)
+# =========================
+local.properties
+
+# =========================
+# 🔹 Android Studio
+# =========================
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# =========================
+# 🔹 Log files
+# =========================
+*.log
+
+# =========================
+# 🔹 OS generated files
+# =========================
+.DS_Store
+Thumbs.db
+
+# =========================
+# 🔹 APK / AAB (file build)
+# =========================
+*.apk
+*.aab
+
+# =========================
+# 🔹 Generated files
+# =========================
+captures/
+.externalNativeBuild/
+.cxx/
+
+# =========================
+# 🔹 Kotlin (nếu có)
+# =========================
+*.kotlin_module
+
+# =========================
+# 🔹 Navigation (auto-generated)
+# =========================
+.navigation/
+
+# =========================
+# 🔹 Signing files (bảo mật)
+# =========================
+*.jks
+*.keystore
+
+# =========================
+# 🔹 Firebase / Google Services (nếu có)
+# =========================
+google-services.json
+
+# =========================
+# 🔹 Room database export (optional)
+# =========================
+schemas/
