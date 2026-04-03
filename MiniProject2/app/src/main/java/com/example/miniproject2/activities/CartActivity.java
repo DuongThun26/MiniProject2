@@ -22,7 +22,7 @@ import com.example.miniproject2.utils.SessionManager;
 
 import java.util.List;
 
-public class CartActivity extends AppCompatActivity {
+public class CartActivity extends AppCompatActivity implements CartAdapter.OnItemRemovedListener {
 
     private RecyclerView rvCart;
     private TextView tvTotal;
@@ -46,7 +46,6 @@ public class CartActivity extends AppCompatActivity {
         btnContinue = findViewById(R.id.btnContinueShopping);
         btnCheckout = findViewById(R.id.btnCheckout);
         
-        // Setup Toolbar for Back Button
         toolbar = findViewById(R.id.toolbar);
         
         if (toolbar != null) {
@@ -62,7 +61,7 @@ public class CartActivity extends AppCompatActivity {
         loadCart();
 
         btnContinue.setOnClickListener(v -> {
-            finish(); // Simply go back to previous screen (Products)
+            finish();
         });
 
         btnCheckout.setOnClickListener(v -> {
@@ -71,7 +70,7 @@ public class CartActivity extends AppCompatActivity {
                 intent.putExtra("orderId", currentOrder.getId());
                 startActivity(intent);
             } else {
-                Toast.makeText(this, "Cart is empty", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Giỏ hàng trống", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -91,19 +90,35 @@ public class CartActivity extends AppCompatActivity {
 
         if (currentOrder != null) {
             List<OrderDetail> details = db.orderDetailDao().getOrderDetailsByOrder(currentOrder.getId());
-            adapter = new CartAdapter(details, db);
+            adapter = new CartAdapter(details, db, this);
             rvCart.setAdapter(adapter);
-
-            double total = 0;
-            for (OrderDetail detail : details) {
-                total += detail.getQuantity() * detail.getUnitPrice();
-            }
-            tvTotal.setText("$" + String.format("%.2f", total));
-            
-            currentOrder.setTotalAmount(total);
-            db.orderDao().update(currentOrder);
+            updateTotalPrice(details);
         } else {
             tvTotal.setText("$0.00");
+        }
+    }
+
+    private void updateTotalPrice(List<OrderDetail> details) {
+        double total = 0;
+        for (OrderDetail detail : details) {
+            total += detail.getQuantity() * detail.getUnitPrice();
+        }
+        tvTotal.setText("$" + String.format("%.2f", total));
+
+        if (currentOrder != null) {
+            currentOrder.setTotalAmount(total);
+            db.orderDao().update(currentOrder);
+        }
+    }
+
+    @Override
+    public void onItemRemoved() {
+        if (currentOrder != null) {
+            List<OrderDetail> details = db.orderDetailDao().getOrderDetailsByOrder(currentOrder.getId());
+            updateTotalPrice(details);
+            if (details.isEmpty()) {
+                Toast.makeText(this, "Giỏ hàng đã trống", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 }
